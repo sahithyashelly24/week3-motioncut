@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Custom E-commerce</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="/w3css/3/w3.css">
+
+<head>
+    <style>
+        .but {
+            border: none;
+            color: #fff;
+            background-image: linear-gradient(30deg, #f3a347, #462b08);
+            border-radius: 20px;
+            background-size: 100% auto;
+            font-family: inherit;
+            font-size: 17px;
+            padding: 0.6em 1.5em;
+        }
+
+        .but:hover {
+            background-position: right center;
+            background-size: 200% auto;
+            -webkit-animation: pulse 2s infinite;
+            animation: pulse512 1.5s infinite;
+        }
+
+        @keyframes pulse512 {
+            0% {
+                box-shadow: 0 0 0 0 #e78c2466;
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(238, 148, 64, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(241, 151, 66, 0);
+            }
+        }
+
+        .product {
+            border: none !important;
+        }
+
+        .product img {
+            height: 150px;
+            width: auto;
+            margin-bottom: -50px;
+            margin-left: 1rem;
+            transition: 0.5s;
+        }
+
+        .product:hover img {
+            transform: scale(1.05) rotate(-10deg);
+        }
+
+        .product .card-title {
+            margin-top: 50px;
+        }
+
+        .img-in-cart {
+            height: 50px;
+        }
+
+        .overflow-scroll {
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="">
+                    <div class="row">
+                        <div class="col-8 border-right min-vh-100">
+                            <div class="vh-100 overflow-scroll pr-2">
+                                <div class="d-flex justify-content-between align-items-end mt-3 mb-3 position-sticky bg-white"
+                                    style="top:0;z-index: 10">
+                                    <div class="">
+                                        <h4 style="color:chocolate">CoffeHouse</h4>
+                                    </div>
+                                    <div class="">
+                                        <div class="form-row">
+                                            <div class="mr-2">
+                                                <input type="text" class="form-control text-capitalize  " id="search"
+                                                    placeholder="search item">
+                                            </div>
+                                            <div class="">
+                                                <select name="" id="category" class="custom-select">
+                                                    <option value="0">All Category</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="products" style="color:#6b3f04" class="card-columns">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="vh-100 overflow-scroll">
+                                <div class="d-flex justify-content-between align-items-end mt-3 mb-3">
+                                    <div class="">
+                                        <h4 style="color:chocolate">My Cart</h4>
+                                        <small style="color:chocolate">Added Items</small>
+                                    </div>
+                                    <div class="">
+                                        <h4>
+                                            <span class="item-in-cart-count">0</span>
+                                            <i style="color:#e4aa5f" class="fas fa-shopping-cart "></i>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div id="cart">
+                                    <a href="payment.html"><button class="but">get now</button></a>
+                                </div>
+                                <div style="color:#e4aa5f" class="total position-sticky py-3 " style="bottom: 0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let products = [
+            {
+                image: 'https://images-na.ssl-images-amazon.com/images/I/81J2wevMmhL.jpg',
+                title: 'Dazzle brushes',
+                description: '',
+                price: 1999,
+                id: 1
+            },
+            {
+                image: 'https://cdn.kbs-coatings.com/assets/images/Paint-Brushes-19.jpg',
+                title: 'Flat tube brushes-camline',
+                description: '',
+                price: 499,
+                id: 2
+            },
+            {
+                image: 'https://images-na.ssl-images-amazon.com/images/I/714x2zKdmiL._AC_SL1500_.jpg',
+                title: 'Fag Brush-HogAir(3pcs)',
+                description: '',
+                price: 115,
+                id: 3
+            },
+            {
+                image: 'https://createlet.com/wp-content/uploads/2018/09/best-acrylic-paint-brushes.jpg',
+                title: 'gold-coated artistic brushes',
+                description: '',
+                price: 5059,
+                id: 4
+            },
+            {
+                image: 'https://images-na.ssl-images-amazon.com/images/I/91q4v572MuL.jpg',
+                title: 'KONDA paint brush(50pcs)',
+                description: '',
+                price: 7000,
+                id: 5
+            },
+            {
+                image: 'https://images.freeimages.com/images/large-previews/5bd/paint-brushes-2-1258215.jpg',
+                title: 'Fabicona Paint brushes(2pcs)',
+                description: '',
+                price: 4059,
+                id: 6
+            },
+            {
+                image: 'https://i.pinimg.com/originals/b5/0c/62/b50c62bbacb5e01a61b168faf6dcb4a7.jpg',
+                title: 'Icon I',
+                description: 'by Kamu Sergey and Olga',
+                price: 97201.57,
+                id: 7
+            },
+            {
+                image: 'https://images.fineartamerica.com/images-medium-large-5/the-miraculous-draft-of-fishes-raphael.jpg',
+                title: 'The Miraculous Draft of Fishes',
+                description: 'by Raphel',
+                price: 2282,
+                id: 8
+            },
+            {
+                image: 'http://ecx.images-amazon.com/images/I/91YfeJD+wiL._SR600.jpg',
+                title: 'hadwriting pen',
+                description: '',
+                price: 498,
+                id: 9
+            },
+
+        ];
+
+        function toShort(str, max = 50) {
+            if (str.length > max) {
+                return str.substring(0, max) + "....."
+            }
+            return str;
+        }
+        function open() {
+            location.replace(payment.html);
+        }
+
+        function toShow(products) {
+            $("#products").empty();
+            products.forEach(product => {
+                $("#products").append(`
+                <div class="card product pt-4">
+                    <img src="${product.image}" class="card-img-top" alt="">
+                    <div class="card-body border rounded">
+                        <p class="card-title font-weight-bold text-nowrap overflow-hidden text-primary">
+                            ${product.title}
+                        </p>
+                        <small class="text-black-50">
+                            ${toShort(product.description, 120)}
+                        </small>
+                        <div class="d-flex justify-content-between align-items-end mt-3">
+                            <span class="font-weight-bold">${product.price}</span>
+                            <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="${product.id}">
+                                Add <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `);
+            });
+        }
+
+        function cartTotal() {
+            let count = $(".item-in-cart-cost").length;
+            $(".item-in-cart-count").html(count);
+
+            if (count > 0) {
+                let totalCost = $(".item-in-cart-cost").toArray().map(el => el.innerHTML).reduce((x, y) => Number(x) + Number(y));
+                $(".total").html(`
+                <div class="d-flex justify-content-between font-weight-bold px-3">
+                    <h4>Total</h4>
+                    <h4>$ <span class="cart-cost-total">${Number(totalCost).toFixed(2)}</span></h4>
+                </div>
+            `);
+            } else {
+                $(".total").html("empty cart")
+            }
+        }
+
+        toShow(products);
+
+        $("#search").on("keyup", function () {
+            let keyword = $(this).val().toLowerCase();
+            if (keyword.trim().length) {
+                let filterProducts = products.filter(product => {
+                    if (product.title.toLowerCase().indexOf(keyword) > -1 || product.description.toLowerCase().indexOf(keyword) > -1 || product.price == keyword) {
+                        return product;
+                    }
+                });
+                toShow(filterProducts);
+            }
+        });
+
+        $.get("https://fakestoreapi.com/products/categories", function (data) {
+            data.map(cat => $("#category").append(`<option value="${cat}">${cat}</option>`))
+        });
+
+        $("#category").on("change", function () {
+            let selectedCategory = $(this).val();
+            if (selectedCategory != 0) {
+                let filterProducts = products.filter(product => {
+                    if (product.category === selectedCategory) {
+                        return product;
+                    }
+                });
+                toShow(filterProducts);
+            } else {
+                toShow(products);
+            }
+        });
+
+        $("#products").delegate(".add-to-cart", "click", function () {
+            let currentItemId = $(this).attr("data-id");
+            let productInfo = products.filter(el => el.id == currentItemId)[0];
+
+            if ($(".item-in-cart").toArray().map(el => el.getAttribute("data-id")).includes(currentItemId)) {
+                alert("Already Added");
+            } else {
+                $("#cart").append(`
+                <div class="card border-0 item-in-cart" data-id="${productInfo.id}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <img src="${productInfo.image}" class="img-in-cart" alt="">
+                            <button class="btn btn-outline-danger remove-from-cart">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                        <p class="mt-3">
+                            ${productInfo.title}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div class="form-row">
+                                <button class="btn btn-outline-primary quantity-minus">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="form-control w-25 mx-2 quantity" unitPrice="${productInfo.price}" value="1" min="1">
+                                <button class="btn btn-outline-primary quantity-plus">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <p class="mb-0">$ <span class="item-in-cart-cost">${productInfo.price}</span></p>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            `);
+            }
+            cartTotal();
+        });
+
+        $("#cart").delegate(".remove-from-cart", "click", function () {
+            $(this).parentsUntil("#cart").remove();
+            cartTotal();
+        });
+
+        $("#cart").delegate(".quantity-plus", "click", function () {
+            let q = $(this).siblings(".quantity").val();
+            let p = $(this).siblings(".quantity").attr("unitPrice");
+            let newQ = Number(q) + 1;
+            let newCost = p * newQ;
+            $(this).siblings(".quantity").val(newQ);
+            $(this).parent().siblings("p").find(".item-in-cart-cost").html(newCost.toFixed(2));
+            cartTotal();
+        });
+
+        $("#cart").delegate(".quantity-minus", "click", function () {
+            let q = $(this).siblings(".quantity").val();
+            let p = $(this).siblings(".quantity").attr("unitPrice");
+            if (q > 1) {
+                let newQ = Number(q) - 1;
+                let newCost = p * newQ;
+                $(this).siblings(".quantity").val(newQ);
+                $(this).parent().siblings("p").find(".item-in-cart-cost").html(newCost.toFixed(2));
+                cartTotal();
+            }
+        });
+
+        $("#cart").delegate(".quantity", "keyup change", function () {
+            let q = $(this).val();
+            let p = $(this).attr("unitPrice");
+            if (q > 1) {
+                let newQ = Number(q);
+                let newCost = p * newQ;
+                $(this).val(newQ);
+                $(this).parent().siblings("p").find(".item-in-cart-cost").html(newCost.toFixed(2));
+                cartTotal();
+            } else {
+                alert("Quantity must be more than one");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
